@@ -10,6 +10,6 @@ class Kernel
 
     public function handle(Request $request): Response
     {
-        return new Response(200, 'beep', 'beep');
+        return new Response(200, "testing", $request->path);
     }
 }
