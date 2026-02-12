@@ -7,7 +7,7 @@ class Kernel
 
     public Router $router;
 
-    public function construct()
+    public function __construct()
     {
         $this->router = new Router();
     }

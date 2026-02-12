@@ -1,9 +1,9 @@
 <?php
 
-use framework\Request;
-use framework\Kernel;
-
 require __DIR__ . '/../vendor/autoload.php';
+
+use Framework\Request;
+use Framework\Kernel;
 
 $kernel = new Kernel();
 
