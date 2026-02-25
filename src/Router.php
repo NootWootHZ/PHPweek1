@@ -4,26 +4,29 @@ namespace Framework;
 
 class Router
 {
-    public array $routes;
+    /** @var Route[] */
+    public array $routes = [];
 
-    public function __construct() {
-        $this->routes = [];
+    public function __construct()
+    {
     }
 
-    public function dispatch(Request $request): Response {
+    public function dispatch(Request $request): Response
+    {
         foreach ($this->routes as $route) {
             if ($route->path === $request->path) {
                 $matchedRoute = $route;
             }
         }
-        if (!isset($matchedRoute)) {
-            return new Response(404, 'Not Found', null);
-        }
 
-        return new Response(200, $matchedRoute->return, null);
+        if (!isset($matchedRoute)) {
+            return new Response(404, 'weggone', null);
+        }
+        return call_user_func($matchedRoute->callback);
     }
 
-    public function addRoute(string $method, string $path, string $return): void {
-        $this->routes[] = new Route($method, $path, $return);
+    public function addRoute(string $method, string $path, callable $callback): void
+    {
+        $this->routes[] = new Route($method, $path, $callback);
     }
 }
