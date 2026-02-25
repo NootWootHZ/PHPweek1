@@ -20,7 +20,7 @@ class Router
         }
 
         if (!isset($matchedRoute)) {
-            return new Response(404, 'weggone', null);
+            return new Response(404, 'weggoneloese', null);
         }
         return call_user_func($matchedRoute->callback);
     }

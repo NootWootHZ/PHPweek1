@@ -14,9 +14,9 @@ class Request
 
     public function __construct(string $method, string $path, array $queryParameters, array $postParameters)
     {
-    $this->method = $method;
-    $this->path = $path;
-    $this->queryParameters = $queryParameters;
-    $this->postParameters = $postParameters;
+        $this->method = $method;
+        $this->path = $path;
+        $this->queryParameters = $queryParameters;
+        $this->postParameters = $postParameters;
     }
 }
