@@ -2,8 +2,10 @@
 
 namespace Framework;
 
+use App\Views\RouteProvider;
 use App\Views\ServiceProvider;
 use Exception;
+use phpDocumentor\Reflection\Types\Object_;
 
 class Kernel
 {
@@ -13,8 +15,11 @@ class Kernel
 
     public function __construct()
     {
-        $this->router = new Router();
         $this->container = new ServiceContainer();
+        $this->container->set(ResponseFactory::class, new ResponseFactory());
+
+        $responseFactory = $this->container->get(ResponseFactory::class);
+        $this->router = new Router($responseFactory);
     }
 
     public function handle(Request $request): Response
@@ -29,13 +34,13 @@ class Kernel
 
     public function registerRoutes(RouteProviderInterface $routeProvider): void
     {
-        $routeProvider->register($this->router, $this->container);
+        $routeProvider->register($this->getRouter(), $this->container);
     }
 
     /**
      * @throws Exception
      */
-    public function registerServices(Serviceprovider $serviceProvider): void
+    public function registerServices(ServiceProviderInterface $serviceProvider): void
     {
         $serviceProvider->register($this->container);
     }

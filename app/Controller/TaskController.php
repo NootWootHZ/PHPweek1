@@ -3,16 +3,24 @@
 namespace App\Controller;
 
 use Framework\Response;
+use Framework\ResponseFactory;
 
 class TaskController
 {
-    public function index(): Response
+    private ResponseFactory $responseFactory;
+
+    public function __construct(ResponseFactory $responseFactory)
     {
-        return new Response(200, 'Body van Index');
+        $this->responseFactory = $responseFactory;
     }
 
-    public function create(): Response
+    public function index(ResponseFactory $responseFactory): Response
     {
-        return new Response(200, 'Body van Create');
+        return $this->responseFactory->body('Dit Task/index');
+    }
+
+    public function create(ResponseFactory $responseFactory): Response
+    {
+        return $this->responseFactory->body('Dit Task/create');
     }
 }

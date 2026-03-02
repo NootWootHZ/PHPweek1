@@ -11,15 +11,18 @@ class ServiceContainer
 
     /**
      * @param class-string $id
-     * @param object $object
+     * @param object $instance
      * @throws Exception
      */
-    public function set(string $id, object $object): void
+    public function set(string $id, object $instance): void
     {
-        if (isset($this->instances[$id])) {
-            throw new Exception("Target binding [$id] already exists");
+        if (!$instance instanceof $id) {
+            throw new Exception("Instance must be of type $id");
         }
-        $this->instances[$id] = $object;
+        if (isset($this->instances[$id])) {
+            throw new Exception("Instance already exists");
+        }
+        $this->instances[$id] = $instance;
     }
 
     /**
@@ -28,7 +31,7 @@ class ServiceContainer
     public function get(string $id): object
     {
         if (!isset($this->instances[$id])) {
-            throw new Exception("Service [$id] not found.");
+            throw new Exception("Target binding $id does not exist");
         }
 
         return $this->instances[$id];

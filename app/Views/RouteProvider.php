@@ -7,6 +7,7 @@ use App\Controller\HomeController;
 use Framework\RouteProviderInterface;
 use Framework\Router;
 use Framework\ServiceContainer;
+use App\Controller\TaskController;
 
 class RouteProvider implements RouteProviderInterface
 {
@@ -18,7 +19,15 @@ class RouteProvider implements RouteProviderInterface
         /** @var HomeController $homeController */
         $homeController = $container->get(HomeController::class);
 
-        $router->addRoute('GET', '/', [$homeController, "index"]);
-        $router->addRoute('GET', '/about', [$homeController, "about"]);
+        $router->addRoute('GET', '/', function () use ($homeController) {
+            return $homeController->index();
+        });
+
+        $router->addRoute('GET', '/about', function () use ($homeController) {
+            return $homeController->about();
+        });
+
+        $taskController = $container->get(TaskController::class);
+        $router->addRoute('GET', '/task', [$taskController, "index"]);
     }
 }
