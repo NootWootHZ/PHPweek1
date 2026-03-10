@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Views;
+namespace App;
 
-use Exception;
 use App\Controller\HomeController;
+use App\Controller\TaskController;
+use Exception;
 use Framework\RouteProviderInterface;
 use Framework\Router;
 use Framework\ServiceContainer;
-use App\Controller\TaskController;
 
 class RouteProvider implements RouteProviderInterface
 {
@@ -28,6 +28,8 @@ class RouteProvider implements RouteProviderInterface
         });
 
         $taskController = $container->get(TaskController::class);
-        $router->addRoute('GET', '/task', [$taskController, "index"]);
+        $router->addRoute('GET', '/task', function () use ($taskController) {
+            return $taskController->index();
+        });
     }
 }

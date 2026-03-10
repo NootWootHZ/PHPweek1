@@ -1,7 +1,7 @@
 <?php
 
-use App\Views\RouteProvider;
-use App\Views\ServiceProvider;
+use App\RouteProvider;
+use App\ServiceProvider;
 use Framework\Kernel;
 use Framework\Request;
 

@@ -2,10 +2,7 @@
 
 namespace Framework;
 
-use App\Views\RouteProvider;
-use App\Views\ServiceProvider;
 use Exception;
-use phpDocumentor\Reflection\Types\Object_;
 
 class Kernel
 {
